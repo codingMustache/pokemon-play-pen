@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Poke from './Poke.jsx';
 import PokeInfo from './PokeInfo.jsx';
 import Cards from './Cards.jsx';
-import SearchBar from './SearchBar.jsx';
 
 const Pokedex = () => {
   const [selectedPoke, setSelectedPoke] = useState({});
@@ -55,7 +54,6 @@ const Pokedex = () => {
   return (
     <div>
       <h1>The Pokédex!</h1>
-      <SearchBar/>
       <div>
         <div>{renderView()}</div>
       </div>
