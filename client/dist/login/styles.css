@@ -1,0 +1,138 @@
+body,
+html {
+     background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdna.artstation.com%2Fp%2Fassets%2Fimages%2Fimages%2F004%2F158%2F902%2Flarge%2Fscott-zenteno-pokecenter.jpg%3F1480927479&f=1&nofb=1&ipt=ebb3783310f54fe2f4f0bbad682194c157a27bf20bf4790c69eaefa74bedfbd0&ipo=images);
+     margin: auto;
+     background-repeat: no-repeat;
+     background-attachment: fixed;
+     background-size: cover;
+     height: 100%;
+     display: flex;
+     width: fit-content;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+}
+
+img {
+     max-width: 70%;
+     z-index: 2;
+}
+
+
+
+/* Poké Styles */
+.pokeball {
+     color: black;
+     font-family: 'Pokemon Solid', sans-serif;
+     position: relative;
+     width: 200px;
+     height: 200px;
+     background: #fff;
+     border: 10px solid #000;
+     border-radius: 50%;
+     overflow: hidden;
+     box-shadow: inset -10px 10px 0 10px #ccc;
+     animation: fall .25s ease-in-out,
+          shake 1.25s cubic-bezier(.36, .07, .19, .97) 3;
+}
+
+.pokeball::before,
+.pokeball::after {
+     content: "";
+     position: absolute;
+}
+
+.pokeball::before {
+     background: red;
+     width: 100%;
+     height: 50%;
+}
+
+.pokeball::after {
+     top: calc(50% - 10px);
+     width: 100%;
+     height: 20px;
+     background: #000;
+}
+
+.pokeball__button {
+     position: absolute;
+     top: calc(50% - 30px);
+     left: calc(50% - 30px);
+     width: 60px;
+     height: 60px;
+     background: #7f8c8d;
+     border: 10px solid #fff;
+     border-radius: 50%;
+     z-index: 10;
+}
+
+.pokeball__button>p {
+     font-size: 30pt;
+     z-index: 2;
+     color: rgb(252, 1, 1);
+     -webkit-text-stroke-width: 2px;
+     -webkit-text-stroke-color: #000;
+     display: flex;
+     margin: auto;
+     justify-content: center;
+}
+
+
+@keyframes blink {
+     from {
+          background: #eee;
+     }
+
+     to {
+          background: #e74c3c;
+     }
+}
+
+@keyframes shake {
+     0% {
+          transform: translate(0, 0) rotate(0);
+     }
+
+     20% {
+          transform: translate(-10px, 0) rotate(-20deg);
+     }
+
+     30% {
+          transform: translate(10px, 0) rotate(20deg);
+     }
+
+     50% {
+          transform: translate(-10px, 0) rotate(-10deg);
+     }
+
+     60% {
+          transform: translate(10px, 0) rotate(10deg);
+     }
+
+     100% {
+          transform: translate(0, 0) rotate(0);
+     }
+}
+
+@keyframes fall {
+     0% {
+          top: -200px
+     }
+
+     60% {
+          top: 0
+     }
+
+     80% {
+          top: -20px
+     }
+
+     100% {
+          top: 0
+     }
+}
+
+.pokeball:hover {
+     box-shadow: 0px 0px 10px white;
+}

@@ -2,10 +2,13 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
+
 const { User } = require('./routes/userRoutes.js');
+const { Deck } = require('./routes/deckRoutes.js');
+const { Pokedex } = require('./routes/pokedexRoutes.js');
+const { Chat } = require('./routes/chat');
+
 const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
-
-
 
 const app = express();
 app.use(session({
@@ -22,16 +25,10 @@ const isLoggedIn = (req, res, next) => {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use('/login', express.static(path.join(__dirname, '../client/dist/login')));
+app.use('/', express.static(path.join(__dirname, '../client/dist/login')));
 app.use('/home', isLoggedIn, express.static(path.join(__dirname, '../client/dist')));
-//renders static page
-// app.use(express.static(CLIENT_PATH));
+app.use( express.static(CLIENT_PATH));
 
-
-app.get('/', (req, res) => {
-  res.redirect('/login');
-  // res.send('<a href="/auth/google"> Authenticate with Google</a>');
-});
 
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
@@ -44,26 +41,24 @@ app.get('/auth/google/callback',
   })
 );
 
-app.get('/home', isLoggedIn, (req, res) => {
-  //console.log(req);
-});
-
 app.get('/auth/failure', (req, res) => {
-  res.send('Something went wrong');
-});
-// app.get('/auth/google/callback',
-//   passport.authenticate('google', { failureRedirect: 'http://localhost:8080' }),
-//   function (req, res) {
-//     res.redirect('http://localhost:8080');
-//   });
-
-
-app.get('/logout', function (req, res) {
-  res.redirect('http://localhost:8080/');
+  res.redirect('/login');
 });
 
-app.use('/api/current/user', User);
 
+app.use('/api/user', User);
+app.use('/api/pokedex', Pokedex);
+app.use('/api/deck', Deck);
+app.use('/api/chat', Chat);
+
+
+app.use('*', (req, res)=>{
+  res.sendFile(path.join(CLIENT_PATH, 'index.html'), (err)=>{
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
 
 module.exports = {
   app,

@@ -5,13 +5,14 @@ module.exports = {
   entry: path.resolve(__dirname, 'client', 'src', 'index.jsx'),
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'client', 'dist')
+    path: path.resolve(__dirname, 'client', 'dist'),
+    publicPath: '/'
   },
   watch: true,
   module: {
     rules: [
       {
-        test: /\.(jsx|js)$/,
+        test: /\.(jsx|js|png)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -21,5 +22,8 @@ module.exports = {
         }
       }
     ]
+  },
+  devServer: {
+    historyApiFallback: true,
   }
 };
